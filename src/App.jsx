@@ -1,39 +1,77 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
- 
-function App() {
-  const [count, setCount] = useState(0/Infinity);
+function createInitialTodos() {
+  const initialTodos = [];
+  return initialTodos;
+}
 
-  function onMouseMove() {
-    setCount(count+1);
-  }
-  function onClick(){
-    setCount(count-10)
-  }
+function App() {
+  const [todos, setTodos] = useState(createInitialTodos);
+  const [text, setText] = useState("");
+
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="app">
+        <div className="board">
+          <div className="container">
+            <div className="tittle">
+              <p>To-Do list</p>
+            </div>
+            <div className="inputContainer">
+              <input
+                className="input"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
+              <button
+                className="button"
+                id="addButton"
+                onClick={() => {
+                  setText("");
+                  setTodos([
+                    {
+                      id: todos.length,
+                      text: text,
+                    },
+                    ...todos,
+                  ]);
+                }}
+              >
+                <p>Add</p>
+              </button>
+            </div>
+            <div className="filterContainer">
+              <button className="button" id="allButton">
+                <p>All</p>
+              </button>
+              <button className="button" id="avticeButton">
+                <p>Active</p>
+              </button>
+              <button className="button" id="complatedButton">
+                <p>Complated</p>
+              </button>
+            </div>
+            <div className="taskCont" id="task">
+              {todos.map((item) => (
+                <div key={item.id} className="task">
+                  <input type="checkbox" className="checkBox"/>
+                  <p>{item.text}</p>
+                  <button className="dltButton" onClick={(()=>todos.filter)}>Delete</button>
+                </div>
+              ))}
+              {/* <p>No tasks yet. Add one above!</p> */}
+            </div>
+          </div>
+          <div className="footContainer">
+            <p>Powered by</p>
+            <a href="">
+              <p className="pinecone">Pinecone academy</p>
+            </a>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onMouseMove={onMouseMove} onClick={onClick}>count is {count} </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
- 
+
 export default App;
