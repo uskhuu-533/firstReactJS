@@ -6,8 +6,32 @@ function createInitialTodos() {
 }
 
 function App() {
-  const [todos, setTodos] = useState(createInitialTodos);
-  const [text, setText] = useState("");
+  const [todos, setTodos] = useState([])
+  const [inputValue, setInputValue] = useState('')
+
+function handleChange(e){
+  setInputValue(e.target.value)
+}
+
+function handleSubmit(e){
+  if (inputValue==""){
+    alert("")
+  }else{
+  e.preventDefault()
+  setTodos([...todos, inputValue])
+  setInputValue('')
+  }
+}
+
+function handleDelete(index){
+  alert("a")
+  const newTodos = [...todos]
+  newTodos.splice(index, 1)
+  setTodos(newTodos)
+}
+  // function deleteTask(){
+  //   return 
+  // }
 
   return (
     <>
@@ -18,27 +42,20 @@ function App() {
               <p>To-Do list</p>
             </div>
             <div className="inputContainer">
+              
               <input
                 className="input"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={inputValue}
+                onChange={handleChange}
               />
               <button
                 className="button"
                 id="addButton"
-                onClick={() => {
-                  setText("");
-                  setTodos([
-                    {
-                      id: todos.length,
-                      text: text,
-                    },
-                    ...todos,
-                  ]);
-                }}
+                onClick={handleSubmit}
               >
                 <p>Add</p>
               </button>
+              
             </div>
             <div className="filterContainer">
               <button className="button" id="allButton">
@@ -52,11 +69,11 @@ function App() {
               </button>
             </div>
             <div className="taskCont" id="task">
-              {todos.map((item) => (
-                <div key={item.id} className="task">
+              {todos.map((todo, index) => (
+                <div key={index} className="task">
                   <input type="checkbox" className="checkBox"/>
-                  <p>{item.text}</p>
-                  <button className="dltButton" onClick={(()=>todos.filter)}>Delete</button>
+                  <p>{todo}</p>
+                  <button className="dltButton" onClick={handleDelete}>Delete</button>
                 </div>
               ))}
               {/* <p>No tasks yet. Add one above!</p> */}
