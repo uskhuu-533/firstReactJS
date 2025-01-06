@@ -85,7 +85,8 @@
   font-size: 16px;
   font-weight: 400;
   height: fit-content;
-  gap:6px
+  gap:6px;
+  border-bottom: #363636;
 }
 .footContainer{
   color: #6b7280;
@@ -106,7 +107,7 @@
   gap:4px;
   position: relative;
 }
-.task:hover .dltButton{
+.task:hover .deleteButton{
   display: block;
 }
 
@@ -114,7 +115,7 @@
   width:20px;
   height:20px
 }
-.dltButton{
+.deleteButton{
   position: absolute;
   margin-left: 75%;
   color:red;
@@ -122,15 +123,14 @@
   background: none;
   display: none;
 }
-.dltButton:hover{
+.deleteButton:hover{
   background: rgba(255, 0, 0, .05);
 }
 
-#addButton {
+#selectedButton {
   background-color: #3c82f6;
   color: #f9f9f9;
+  border: none;
+  border-radius: 6px;
 }
-#allButton {
-  background-color: #3c82f6;
-  color: #f9f9f9;
-}
+
