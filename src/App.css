@@ -148,10 +148,46 @@
 .blutText{
   color:#6b7280
 }
+.dateLog {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 4px;
+}
 #selectedButton {
   background-color: #3c82f6;
   color: #f9f9f9;
   border: none;
   border-radius: 6px;
 }
+.allTasksContainer {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.allTasksContainer h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.allTasksContainer h3 {
+  font-size: 1.2rem;
+  margin-top: 15px;
+}
+
+.task {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.dateLog {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 2px;
+}
+
 

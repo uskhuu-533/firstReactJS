@@ -7,48 +7,52 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filterState, setFilterState] = useState("All");
-  const [countCompletedTasks, SetCompletedCount] = useState(0);
 
   function handleChange(e) {
     setInputValue(e.target.value);
   }
 
   function handleSubmit(e) {
-    if (inputValue.length == 0) {
-      return null;
-    } else {
-      e.preventDefault();
-      setTodos([
-        ...todos,
-        { description: inputValue, status: "Active", id: uuidv4() },
-      ]);
-      setInputValue("");
+    if (!inputValue.trim()) {
+      return;
     }
+    e.preventDefault();
+    const currentDate = new Date().toLocaleString(); // Format the date
+    setTodos([
+      ...todos,
+      {
+        description: inputValue,
+        status: "Active",
+        id: uuidv4(),
+        addedDate: currentDate,
+      },
+    ]);
+    setInputValue("");
   }
   const handleDelete = (id) => {
+    const currentDate = new Date().toLocaleString();
     const tasks = todos.map((todo) => {
-      if (todo.id == id) {
-        return { ...todo, status: "Deleted" };
-      } else {
-        return todo;
+      if (todo.id === id) {
+        return { ...todo, status: "Deleted", deletedDate: currentDate };
       }
+      return todo;
     });
     setTodos(tasks);
-    console.log(tasks);
   };
 
   const handleTaskChekBox = (id) => {
+    const currentDate = new Date().toLocaleString();
     const tasks = todos.map((todo) => {
-      if (todo.id == id && todo.status == "Active") {
-        return { ...todo, status: "Completed" };
-      } else if (todo.id == id && todo.status == "Completed") {
-        return { ...todo, status: "Active" };
-      } else {
-        return todo;
+      if (todo.id === id) {
+        if (todo.status === "Active") {
+          return { ...todo, status: "Completed", completedDate: currentDate };
+        } else if (todo.status === "Completed") {
+          return { ...todo, status: "Active", completedDate: null };
+        }
       }
+      return todo;
     });
     setTodos(tasks);
-    // console.log(tasks);
   };
 
   const handleFilterStateChange = (state) => {
@@ -69,7 +73,7 @@ function App() {
   const filteredTodos = todos.filter((todo) => todo.status !== "Deleted");
   console.log(filteredTodos);
   const completedTodos = todos.filter((todo) => todo.status == "Completed");
-  const activeTodos = todos.filter((todo)=>todo.status=="Active")
+  const activeTodos = todos.filter((todo) => todo.status == "Active");
 
   return (
     <>
@@ -143,14 +147,27 @@ function App() {
                   }
                 })
                 .map((todo) => (
-                  <div className="task">
+                  <div className="task" key={todo.id}>
                     <input
                       type="checkbox"
                       className="checkBox"
-                      checked={todo.status == "Completed"}
+                      checked={todo.status === "Completed"}
                       onChange={() => handleTaskChekBox(todo.id)}
                     />
-                    {todo.description}
+                    <div>
+                      <p>{todo.description}</p>
+                      {todo.addedDate && (
+                        <p className="dateLog">Added: {todo.addedDate}</p>
+                      )}
+                      {todo.completedDate && (
+                        <p className="dateLog">
+                          Completed: {todo.completedDate}
+                        </p>
+                      )}
+                      {todo.deletedDate && (
+                        <p className="dateLog">Deleted: {todo.deletedDate}</p>
+                      )}
+                    </div>
                     <button
                       className="deleteButton"
                       onClick={() => handleDelete(todo.id)}
@@ -175,15 +192,52 @@ function App() {
                   {completedTodos.length} of {filteredTodos.length} tasks
                   completed
                 </div>
-                {(completedTodos.length!==0)?
+                {completedTodos.length !== 0 ? (
                   <button
-                  className="clearCompleted"
-                  onClick={() => handleDeleteAll()}
-                >
-                  Clear Completed
-                </button>:null}
+                    className="clearCompleted"
+                    onClick={() => handleDeleteAll()}
+                  >
+                    Clear Completed
+                  </button>
+                ) : null}
               </div>
             ) : null}
+            <div className="allTasksContainer">
+              <h2>All Tasks</h2>
+              <div>
+                <h3>Active</h3>
+                {todos
+                  .filter((todo) => todo.status === "Active")
+                  .map((todo) => (
+                    <div key={todo.id} className="task">
+                      <p>{todo.description}</p>
+                      <p className="dateLog">Added: {todo.addedDate}</p>
+                    </div>
+                  ))}
+              </div>
+              <div>
+                <h3>Completed</h3>
+                {todos
+                  .filter((todo) => todo.status === "Completed")
+                  .map((todo) => (
+                    <div key={todo.id} className="task">
+                      <p>{todo.description}</p>
+                      <p className="dateLog">Completed: {todo.completedDate}</p>
+                    </div>
+                  ))}
+              </div>
+              <div>
+                <h3>Deleted</h3>
+                {todos
+                  .filter((todo) => todo.status === "Deleted")
+                  .map((todo) => (
+                    <div key={todo.id} className="task">
+                      <p>{todo.description}</p>
+                      <p className="dateLog">Deleted: {todo.deletedDate}</p>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
           <div className="footContainer">
             <p>Powered by</p>
