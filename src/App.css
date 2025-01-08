@@ -1,6 +1,6 @@
 #root {
   margin: 0 auto;
-  text-align: center;
+  /* text-align: center; */
 }
 .app {
   display: flex;
@@ -19,6 +19,7 @@
   align-items: center;
   gap: 40px;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
+  position: relative;
 }
 
 .container {
@@ -89,6 +90,8 @@
   gap:6px;
   border-bottom: #6b7280 solid 0.5px;
   padding-bottom: 20px;
+  max-height: 100vh;
+  overflow: scroll;
 }
 .footContainer{
   color: #6b7280;
@@ -160,28 +163,38 @@
   border-radius: 6px;
 }
 .allTasksContainer {
+  width:50%;
   margin-top: 20px;
-  padding: 15px;
-  background: #f9f9f9;
+  background: rgba(0, 0, 0, 0.95);
   border-radius: 8px;
+  padding: 0px 5px;
+  position: absolute;
+  align-items:baseline;
+  max-height:80% ;
+  overflow:scroll;
+  padding-bottom: 30px;
 }
 
-.allTasksContainer h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
+
 
 .allTasksContainer h3 {
   font-size: 1.2rem;
-  margin-top: 15px;
+
+  color: white;
+  margin: 25px 50px;
 }
 
-.task {
-  background: #ffffff;
+.taskLog {
+  background:rgba(0, 0, 0);
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 10px;
-  margin: 5px 0;
+  margin: 5px 50px;
+  display: flex;
+  justify-content: space-between;
+  color: #ddd;
+  margin-bottom: 10px;
+  
 }
 
 .dateLog {
@@ -189,5 +202,34 @@
   color: gray;
   margin-top: 2px;
 }
+.removeLog{
+  background: red;
+  border-radius: 50%;
+  border: none;
+  width: 10px;
+  height: 12px;
+  color:black;
+  align-content: center;
+  align-self:flex-start;
+  justify-self:end;
 
+}
+#log{
+  background: green;
+  color: #ddd;
 
+}
+.selection{
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #ddd;
+  margin: 30px 50px ;
+}
+.logButton{
+  background: none;
+  border: none;
+  color:#ddd
+}
+.buttonCont{
+  margin:0 70%;
+  display: flex;
+}
