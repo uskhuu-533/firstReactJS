@@ -203,15 +203,12 @@
   margin-top: 2px;
 }
 .removeLog{
-  background: red;
+  background:red;
   border-radius: 50%;
   border: none;
   width: 10px;
   height: 12px;
-  color:black;
-  align-content: center;
-  align-self:flex-start;
-  justify-self:end;
+  
 
 }
 #log{
