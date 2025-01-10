@@ -7,7 +7,7 @@ const Summary = (props) => {
     const currentDate = new Date().toLocaleDateString();
     const tasks = todos.map((todo) => {
       if (todo.status == "Completed") {
-        return { ...todo, status: "Deleted", deletedDate: currentDate };
+        return { ...todo, status: "Deleted",logs:[...todo.logs,{status: "Deleted" ,deletedDate: currentDate}]  };
       } else {
         return todo;
       }

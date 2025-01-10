@@ -10,10 +10,7 @@ const Input = ({ todos, setTodos }) => {
   }
 
   function handleSubmit(e) {
-    if (!inputValue.trim()) {
-      return;
-    }
-    e.preventDefault();
+    if(inputValue.length !== 0){
     const currentDate = new Date().toLocaleString();
     setTodos([
       ...todos,
@@ -21,12 +18,22 @@ const Input = ({ todos, setTodos }) => {
         description: inputValue,
         status: "Active",
         id: uuidv4(),
-        addedDate: currentDate,
+        logs: [{status: "Added",  addedDate: currentDate, id: uuidv4()}]
+       
       },
     ]);
 
     setInputValue("");
-  }
+  }}
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit()
+    }}
+   
+    window.addEventListener('keydown', handleKeyDown);
+
+
   return (
     <>
       <div className="inputContainer">

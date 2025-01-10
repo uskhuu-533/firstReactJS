@@ -3,7 +3,6 @@ const Filter = (props) => {
   const { setDisplay, filterState, todos, setFilterState } = props;
   const handleFilterStateChange = (state) => {
     setFilterState(state);
-    console.log(state);
   };
   const logDisplayBlock = (display) => {
     setDisplay(display);

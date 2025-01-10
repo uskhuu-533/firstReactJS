@@ -33,13 +33,13 @@ const Logs = (props) => {
         }
       });
       setTodos(tasks);
-      console.log(tasks);
     }
   };
   const recoverDeletedTask = () => {
+    const currentDate = new Date().toLocaleString();
     const tasks = todos.map((todo) => {
       if (todo.select == "selected") {
-        return { ...todo, status: "Active", deletedDate: null, select: null };
+        return { ...todo, status: "Active",  select: null, logs: [...todo.logs ,{status:"Recovered", recoveredDate:currentDate}] };
       } else {
         return todo;
       }
@@ -96,10 +96,11 @@ const Logs = (props) => {
                   <div>
                     <p>description : {todo.description}</p>
                   </div>
-                  <div>
-                    <p className="dateLog">Added: {todo.addedDate}</p>
-                    <p className="dateLog">Completed: {todo.completedDate}</p>
-                    <p className="dateLog">Deleted: {todo.deletedDate}</p>
+                  <div className="dateCont">
+                  {todo.logs.map((log, index) => (
+                      <div className="dateLog" key={index}>{log.status}: {log.addedDate} {log.reActiveDate} {log.completedDate} {log.deletedDate} {log.recoveredDate} </div>
+                    ))}
+               
                   </div>
                 </div>
               ))}

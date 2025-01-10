@@ -201,6 +201,11 @@
   font-size: 0.8rem;
   color: gray;
   margin-top: 2px;
+ 
+}
+.dateCont{
+  max-height: 100px;
+  overflow: scroll;
 }
 .removeLog{
   background:red;
@@ -208,7 +213,8 @@
   border: none;
   width: 10px;
   height: 12px;
-  
+  position:sticky;
+
 
 }
 #log{

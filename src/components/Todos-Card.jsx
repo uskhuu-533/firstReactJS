@@ -1,13 +1,31 @@
+import React from "react";
+import * as ReactDOM from "react-dom";
+
 const TodoCard = (props) => {
   const { todos, setTodos, filterState } = props;
+  const log = [];
   const handleTaskChekBox = (id) => {
     const currentDate = new Date().toLocaleString();
     const tasks = todos.map((todo) => {
       if (todo.id === id) {
         if (todo.status === "Active") {
-          return { ...todo, status: "Completed", completedDate: currentDate };
+          return {
+            ...todo,
+            status: "Completed",
+            logs: [
+              ...todo.logs,
+              { status: "Completed", completedDate: currentDate },
+            ],
+          };
         } else if (todo.status === "Completed") {
-          return { ...todo, status: "Active", completedDate: null };
+          return {
+            ...todo,
+            status: "Active",
+            logs: [
+              ...todo.logs,
+              { status: "ReActive", reActiveDate: currentDate },
+            ],
+          };
         }
       }
       return todo;
@@ -19,12 +37,17 @@ const TodoCard = (props) => {
     const currentDate = new Date().toLocaleString();
     const tasks = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, status: "Deleted", deletedDate: currentDate };
+        return {
+          ...todo,
+          status: "Deleted",
+          logs: [...todo.logs, { status: "Deleted", deletedDate: currentDate }],
+        };
       }
       return todo;
     });
-
+    log.push(currentDate);
     setTodos(tasks);
+    return log;
   };
 
   const filteredTodos = todos.filter((todo) => todo.status !== "Deleted");

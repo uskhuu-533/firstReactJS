@@ -15,6 +15,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [filterState, setFilterState] = useState("All");
   const [logdisplay, setDisplay] = useState("none");
+
   return (
     <>
       <div className="app">
