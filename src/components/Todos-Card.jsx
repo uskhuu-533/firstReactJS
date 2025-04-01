@@ -35,6 +35,7 @@ const TodoCard = (props) => {
 
   const handleDelete = (id) => {
     const currentDate = new Date().toLocaleString();
+    alert('Deleted')
     const tasks = todos.map((todo) => {
       if (todo.id === id) {
         return {
